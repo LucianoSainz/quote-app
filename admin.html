@@ -1,19 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quote-app</title>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
-    <script sr="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
-    <link rel="stylesheet" href="styles.css">
-    <script src="event.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+    
+
+    <!-- Custom CSS to make it look presentable -->
+    <style>
+        .font {
+            font-family: 'Josefin Slab', serif;
+            text-align: center;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        textarea {
+            font-family: 'Josefin Slab', serif;
+            width: 100%;
+            min-height: 100px;
+            font-size: 40px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: 2px solid #4db8ff;
+
+        }
+
+        input[type=button] {
+            font-family: 'Josefin Slab', serif;
+            width: 100%;
+            background-color: #4db8ff;
+            border: none;
+            color: white;
+            font-size: 30px;
+            padding: 16px 32px;
+            text-decoration: none;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 15px;
+        }
+
+        input:hover {
+            background-color: #008ae6;
+        }
+
+        input:focus,
+        textarea:focus,
+        button:focus {
+            outline: none;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <div class="col-md-3">
@@ -21,7 +67,7 @@
         <div class="col-md-6">
             <!--Heading-->
             <h1 class="font">
-                Add Zour Quotes in Realtime using <code>Sockets</code>and<code>Node.js</code>
+                Add Your Quotes in Realtime using <code>Sockets</code> and <code>Node.js</code>
             </h1>
             <hr>
 
@@ -31,13 +77,36 @@
                 <br>
                 <br>
                 <!--Quotes tranferred to server when button is clicked via "new" event-->
-              <div>
-                  <input type="button" id="aquote" value="Add you Quote"> </button>
-              </div>
+                <div>
+                    <input type="button" id="aquote" value="Add you Quote"> </button>
+                </div>
             </div>
         </div>
         <div class="col-md-3">
         </div>
     </div>
+
+    <script>
+        //Jquery code starts
+        $('document').ready(function () {
+            //Connecting the socket to host and port
+            var socket = io.connect('http://localhost:3000');
+            socket.on('welcome', function (data) {
+
+            });
+
+            $('#aquote').click(function () {
+                data = $('#qcontent').val()
+                console.log(data);
+                //Emitting the event and passing the quote to the server
+                socket.emit('new', { quote: data })
+                $('#qcontent').val('');
+            })
+
+
+        })
+        //jquery code ends
+    </script>
 </body>
+
 </html>
