@@ -12,9 +12,32 @@
         crossorigin="anonymous"></script>
     <script sr="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
     <link rel="stylesheet" href="styles.css">
-    <script src=""></script>
+    <script src="event.js"></script>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <!--Heading-->
+            <h1 class="font">
+                Add Zour Quotes in Realtime using <code>Sockets</code>and<code>Node.js</code>
+            </h1>
+            <hr>
+
+            <div>
+                <!-- Text area where admin will write quote-->
+                <textarea id="qcontent"></textarea>
+                <br>
+                <br>
+                <!--Quotes tranferred to server when button is clicked via "new" event-->
+              <div>
+                  <input type="button" id="aquote" value="Add you Quote"> </button>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
 </body>
 </html>
